@@ -28,10 +28,15 @@ namespace Vidly
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var dbConnectionString = Configuration.GetConnectionString("VidlyDbConnection");
+            // var dbConnectionString = Configuration.GetConnectionString("VidlyDbConnection");
             // Identity Db Connection mysql
-            services.AddDbContextPool<ApplicationDbContext>(options =>
-            options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+            /*services.AddDbContextPool<ApplicationDbContext>(options =>
+            options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));*/
+
+            // MS Sql Server Connection
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("VidlyDbConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
